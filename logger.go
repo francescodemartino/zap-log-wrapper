@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	DefaultLogPath          = "./logs"
+	DefaultLogPath          = "/logs"
 	DefaultLifespanLogFile  = 5 * time.Hour * 24
 	DefaultLifetimeLogFiles = 30 * time.Hour * 24
 )
