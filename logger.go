@@ -16,6 +16,7 @@ const (
 )
 
 var logger *zap.Logger
+var zapLogger *ZapLogger
 
 func CreateDefaultLogger(logLevel string, nameService string, logPath string, printInConsole bool) {
 	CreateLogger(logLevel, nameService, printInConsole, logPath, DefaultLifespanLogFile, DefaultLifetimeLogFiles)
@@ -33,8 +34,16 @@ func CreateLogger(logLevel string, nameService string, printInConsole bool, logP
 	hostname, _ := os.Hostname()
 	logger = logger.With(zap.String("name_service", nameService))
 	logger = logger.With(zap.String("hostname", hostname))
+
+	zapLogger = &ZapLogger{
+		logger: logger,
+	}
 }
 
 func GetLogger() zap.Logger {
 	return *logger
+}
+
+func GetMinimizedZapLogger() ZapLogger {
+	return *zapLogger
 }
