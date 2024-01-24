@@ -1,6 +1,7 @@
 package log_wrapper
 
 import (
+	ginzap "github.com/gin-contrib/zap"
 	"gitlab.com/evendo-project/log-wrapper/writer_custom_log"
 	"go.elastic.co/ecszap"
 	"go.uber.org/zap"
@@ -44,6 +45,6 @@ func GetLogger() zap.Logger {
 	return *logger
 }
 
-func GetMinimizedZapLogger() ZapLogger {
-	return *zapLogger
+func GetMinimizedZapLogger() ginzap.ZapLogger {
+	return zapLogger
 }
