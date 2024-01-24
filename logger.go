@@ -17,7 +17,7 @@ const (
 
 var logger *zap.Logger
 
-func CreateDefaultLogger(logLevel string, nameService string, printInConsole bool, logPath string) {
+func CreateDefaultLogger(logLevel string, nameService string, logPath string, printInConsole bool) {
 	CreateLogger(logLevel, nameService, printInConsole, logPath, DefaultLifespanLogFile, DefaultLifetimeLogFiles)
 }
 
