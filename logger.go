@@ -34,7 +34,7 @@ func CreateLogger(logLevel string, nameService string, printInConsole bool, logP
 	logger = zap.New(core, zap.AddCaller())
 
 	hostname, _ := os.Hostname()
-	logger = logger.With(zap.String("name_service", nameService))
+	logger = logger.With(zap.String("service_name", nameService))
 	logger = logger.With(zap.String("hostname", hostname))
 
 	zapLogger = &ZapLogger{
