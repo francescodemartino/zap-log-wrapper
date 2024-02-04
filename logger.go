@@ -59,6 +59,17 @@ func GetLoggerWithTraceIdGinPlug(c *gin.Context) (zap.Logger, string) {
 	return loggerWithTrace, traceId
 }
 
+func GetLoggerWithCustomTraceId(traceId string) zap.Logger {
+	loggerWithTrace := logger.With(zap.String("trace_id", traceId))
+	return *loggerWithTrace
+}
+
+func GetLoggerWithCustomTraceIdGinPlug(c *gin.Context, traceId string) zap.Logger {
+	loggerWithTrace := GetLoggerWithCustomTraceId(traceId)
+	c.Header("X-Correlation-ID", traceId)
+	return loggerWithTrace
+}
+
 func GetRecoveryWithLoggerGin() gin.HandlerFunc {
 	return ginzap.RecoveryWithZap(getMinimizedZapLogger(), true)
 }
