@@ -3,6 +3,7 @@ package log_wrapper
 import (
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"gitlab.com/evendo-project/log-wrapper/writer_custom_log"
 	"go.elastic.co/ecszap"
 	"go.uber.org/zap"
@@ -44,6 +45,18 @@ func CreateLogger(logLevel string, nameService string, printInConsole bool, logP
 
 func GetLogger() zap.Logger {
 	return *logger
+}
+
+func GetLoggerWithTraceId() (zap.Logger, string) {
+	traceId := uuid.New().String()
+	loggerWithTrace := logger.With(zap.String("trace_id", traceId))
+	return *loggerWithTrace, traceId
+}
+
+func GetLoggerWithTraceIdGinPlug(c *gin.Context) (zap.Logger, string) {
+	loggerWithTrace, traceId := GetLoggerWithTraceId()
+	c.Header("X-Correlation-ID", traceId)
+	return loggerWithTrace, traceId
 }
 
 func GetRecoveryWithLoggerGin() gin.HandlerFunc {
