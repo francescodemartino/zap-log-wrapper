@@ -1,4 +1,4 @@
-module gitlab.com/evendo-project/log-wrapper
+module github.com/francescodemartino/zap-log-wrapper
 
 go 1.19
 
